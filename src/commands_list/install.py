@@ -5,7 +5,7 @@
 - install_package(package_name): Устанавливает указанный пакет.
 """
 
-from utils import run_command
+from .utils import run_command
 
 
 def install_package(package_name):
