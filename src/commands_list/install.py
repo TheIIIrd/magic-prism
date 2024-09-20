@@ -19,4 +19,4 @@ def install_package(package_name):
         print(f"🎉 Установка {package_name} завершена успешно!\n{output}")
 
     except RuntimeError as e:
-        print(f"❌ {e}")
+        print(e)

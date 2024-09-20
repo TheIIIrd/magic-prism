@@ -51,7 +51,7 @@ def handle_arguments():
 
     else:
         print(
-            "Неизвестная команда. Используйте: install, search, remove, update, upgrade."
+            "Неизвестная команда. Используйте: install, remove, search, update, upgrade."
         )
         return 1
 
