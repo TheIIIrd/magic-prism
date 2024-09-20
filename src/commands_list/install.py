@@ -1,3 +1,10 @@
+"""
+Модуль для установки пакетов с помощью пакетного менеджера pacman.
+
+Функции:
+- install_package(package_name): Устанавливает указанный пакет.
+"""
+
 from utils import run_command
 
 
