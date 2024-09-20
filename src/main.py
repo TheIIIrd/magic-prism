@@ -24,8 +24,7 @@ def install_package(package_name):
         subprocess.run(
             ["sudo", "pacman", "-Syy", "--noconfirm", package_name],
             check=True,
-            # stdout=subprocess.PIPE,  # Подавляем стандартный вывод
-            # stderr=subprocess.PIPE   # Подавляем стандартный вывод ошибок
+            stderr=subprocess.PIPE,  # Подавляем стандартный вывод ошибок
         )
         print(f"Установка {package_name} завершена успешно! 🎉")
 
