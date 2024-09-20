@@ -12,4 +12,5 @@ def run_command(command):
         return result.stdout
 
     except subprocess.CalledProcessError as e:
-        raise RuntimeError(f"Ошибка при выполнении команды: {e.stderr.strip()}")
+        # Явно перекидываем исключение с указанием на оригинальную ошибку
+        raise RuntimeError(f"Ошибка при выполнении команды: {e.stderr.strip()}") from e
