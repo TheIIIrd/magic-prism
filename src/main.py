@@ -22,15 +22,15 @@ def install_package(package_name):
     try:
         # Выполняем команду pacman для установки пакета
         subprocess.run(
-            ["sudo", "pacman", "-Syy", "--noconfirm", package_name],
+            ["sudo", "pacman", "-Sy", "--noconfirm", package_name],
             check=True,
             stderr=subprocess.PIPE,  # Подавляем стандартный вывод ошибок
         )
-        print(f"Установка {package_name} завершена успешно! 🎉")
+        print(f"🎉 Установка {package_name} завершена успешно!")
 
     except subprocess.CalledProcessError as e:
         print(
-            f"Произошла ошибка при установке {package_name}. Ошибка: {e.stderr.decode().strip()} ❌"
+            f"❌ Произошла ошибка при установке {package_name}. Ошибка:\n{e.stderr.decode().strip()}"
         )
 
 
