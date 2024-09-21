@@ -5,6 +5,8 @@
 - search_package(package_name): Ищет указанный пакет.
 """
 
+from .utils import run_command
+
 
 def search_package(package_name):
     """Поиск указанного пакета."""
