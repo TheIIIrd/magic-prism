@@ -16,6 +16,7 @@
 
 import sys
 from commands_list.install import install_package
+from commands_list.list import list_package
 from commands_list.remove import remove_package
 from commands_list.search import search_package
 from commands_list.show import show_package
@@ -32,6 +33,7 @@ def handle_arguments():
     command = sys.argv[1]
     command_handlers = {
         "install": install_package,
+        "list": list_package,
         "remove": remove_package,
         "search": search_package,
         "show": show_package,
@@ -40,7 +42,7 @@ def handle_arguments():
     }
 
     if command in command_handlers:
-        if command in ["update", "upgrade"]:
+        if command in ["list", "update", "upgrade"]:
             command_handlers[command]()
 
         elif len(sys.argv) != 3:
@@ -53,7 +55,7 @@ def handle_arguments():
 
     else:
         print(
-            "Неизвестная команда. Используйте: install, remove, search, show, update, upgrade."
+            "Неизвестная команда. Используйте: install, list, remove, search, show, update, upgrade."
         )
         return 1
 
