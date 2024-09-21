@@ -7,7 +7,7 @@
 
 
 def search_package(package_name):
-    """Поиск указанного пакета (пока заглушка)."""
+    """Поиск указанного пакета."""
     if not package_name:
         print("❌ Название пакета не указано.")
         return
