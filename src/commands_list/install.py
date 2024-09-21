@@ -16,7 +16,7 @@ def install_package(package_name):
 
     try:
         print(f"📦 Устанавливаем пакет: {package_name}")
-        output = run_command(["sudo", "pacman", "-Sy", "--noconfirm", package_name])
+        run_command(["sudo", "pacman", "-Sy", "--noconfirm", package_name])
         print(f"🎉 Установка {package_name} завершена успешно!")
 
     except RuntimeError as e:
