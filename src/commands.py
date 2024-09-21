@@ -18,6 +18,7 @@ import sys
 from commands_list.install import install_package
 from commands_list.remove import remove_package
 from commands_list.search import search_package
+from commands_list.show import show_package
 from commands_list.update import update_system
 from commands_list.upgrade import upgrade_system
 
@@ -33,6 +34,7 @@ def handle_arguments():
         "install": install_package,
         "remove": remove_package,
         "search": search_package,
+        "show": show_package,
         "update": update_system,
         "upgrade": upgrade_system,
     }
@@ -51,7 +53,7 @@ def handle_arguments():
 
     else:
         print(
-            "Неизвестная команда. Используйте: install, remove, search, update, upgrade."
+            "Неизвестная команда. Используйте: install, remove, search, show, update, upgrade."
         )
         return 1
 
