@@ -23,5 +23,5 @@ def run_command(command):
     except subprocess.CalledProcessError as e:
         # Явно перекидываем исключение с указанием на оригинальную ошибку
         raise RuntimeError(
-            f"❌ Ошибка при выполнении команды:\n{e.stderr.strip()}"
+            f"❌ Ошибка при выполнении команды:\n{e.stderr.decode().strip()}"
         ) from e
