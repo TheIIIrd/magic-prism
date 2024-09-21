@@ -8,7 +8,7 @@ It's now supported:
 - [ ] [apt](https://documentation.ubuntu.com/server/how-to/software/package-management/)
 - [ ] [dnf](https://docs.fedoraproject.org/en-US/quick-docs/dnf/)
 - [ ] [dpkg](https://www.debian.org/doc/manuals/debian-faq/pkg-basics.en.html)
-- [ ] [epm](https://wiki.etersoft.ru/Epm)
+- [ ] [epm](https://alt-gnome.wiki/epm.html)
 - [ ] [flatpak](https://docs.flatpak.org/en/latest/using-flatpak.html)
 - [ ] [gnu guix](https://guix.gnu.org/manual/devel/en/html_node/)
 - [ ] [nix](https://nix.dev/manual/nix/2.24/)
