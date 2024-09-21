@@ -9,7 +9,7 @@ from .utils import run_command
 
 
 def remove_package(package_name):
-    """Удаление указанного пакета (пока заглушка)."""
+    """Удаление указанного пакета."""
     if not package_name:
         print("❌ Название пакета не указано.")
         return
