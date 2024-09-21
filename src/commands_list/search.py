@@ -8,4 +8,13 @@
 
 def search_package(package_name):
     """Поиск указанного пакета (пока заглушка)."""
-    print(f"🔍 Ищем пакет: {package_name}")
+    if not package_name:
+        print("❌ Название пакета не указано.")
+        return
+
+    try:
+        print(f"🔍 Ищем пакет: {package_name}")
+        run_command(["pacman", "-Ss", package_name])
+
+    except RuntimeError as e:
+        print(e)
