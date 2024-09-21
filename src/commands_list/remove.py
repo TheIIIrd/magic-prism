@@ -17,7 +17,7 @@ def remove_package(package_name):
     try:
         print(f"🗑 Удаляем пакет: {package_name}")
         run_command(["sudo", "pacman", "-Rsn", package_name])
-        print(f"🎉 Установка {package_name} завершена успешно!")
+        print(f"🎉 Удаление {package_name} завершено успешно!")
 
     except RuntimeError as e:
         print(e)
