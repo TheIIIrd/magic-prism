@@ -27,7 +27,7 @@ from commands_list.upgrade import upgrade_system
 def handle_arguments():
     """Обрабатывает аргументы командной строки и вызывает соответствующие функции."""
     if len(sys.argv) < 2:
-        print("Использование: python main.py <команда> [<название_пакета>]")
+        print("Использование: python main.py <команда> [<название_пакета>...]")
         return 1
 
     command = sys.argv[1]
@@ -45,28 +45,33 @@ def handle_arguments():
         if command in ["list", "update", "upgrade"]:
             command_handlers[command]()
 
-        elif len(sys.argv) != 3:
+        # Для установки и удаления пакетов нам нужно больше аргументов
+        elif command in ["install", "remove", "search", "show"]:
+            package_names = sys.argv[2:]
+            if not package_names:
+                print(f"Использование: python main.py {command} <название_пакета>...")
+                return 1
+
+            command_handlers[command](package_names)
+
+        else:
             print(f"Использование: python main.py {command} <название_пакета>")
             return 1
 
-        else:
-            package_name = sys.argv[2]
-            command_handlers[command](package_name)
-
     else:
         print(
-            "==============================\n"
+            "=============================\n"
             "Ошибка: команда не распознана\n"
-            "==============================\n"
+            "=============================\n"
             "Доступные команды:\n"
-            "- install   : установка пакета в систему\n"
+            "- install   : установка пакетов в систему\n"
             "- list      : вывод списка установленных пакетов\n"
-            "- remove    : удаление установленного пакета\n"
+            "- remove    : удаление установленных пакетов\n"
             "- search    : поиск пакетов\n"
             "- show      : отображение информации о пакете\n"
             "- update    : синхронизация репозиториев системы\n"
             "- upgrade   : обновление всех установленных пакетов\n"
-            "=============================="
+            "============================="
         )
 
         return 1

@@ -8,16 +8,16 @@
 from .utils import run_command
 
 
-def install_package(package_name):
-    """Установка указанного пакета."""
-    if not package_name:
-        print("❌ Название пакета не указано.")
+def install_package(package_names):
+    """Устанавливает указанные пакеты с помощью пакетного менеджера."""
+    if not package_names:
+        print("❌ Названия пакетов не указаны.")
         return
 
     try:
-        print(f"📦 Устанавливаем пакет: {package_name}")
-        run_command(["sudo", "pacman", "-Sy", "--noconfirm", package_name])
-        print(f"🎉 Установка {package_name} завершена успешно!")
+        print(f"📦 Устанавливаем пакеты: {', '.join(package_names)}")
+        run_command(["sudo", "pacman", "-Sy", "--noconfirm"] + package_names)
+        print(f"🎉 Установка {', '.join(package_names)} завершена успешно!")
 
     except RuntimeError as e:
         print(e)
