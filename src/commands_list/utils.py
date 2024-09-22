@@ -25,3 +25,18 @@ def run_command(command):
         raise RuntimeError(
             f"❌ Ошибка при выполнении команды:\n{e.stderr.decode().strip()}"
         ) from e
+
+
+def process_packages(command, package_names, comment):
+    """Обрабатывает список пакетов с указанной командой."""
+    if not package_names:
+        print("❌ Название пакета не указано.")
+        return
+
+    for package in package_names:
+        try:
+            print(comment, package)
+            run_command(command + [package])
+
+        except RuntimeError as e:
+            print(e)
