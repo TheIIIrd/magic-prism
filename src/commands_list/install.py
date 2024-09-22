@@ -9,7 +9,7 @@ from .utils import run_command
 
 
 def install_package(package_name):
-    """Устанавливает указанный пакет с помощью пакетного менеджера pacman."""
+    """Установка указанного пакета."""
     if not package_name:
         print("❌ Название пакета не указано.")
         return
