@@ -16,9 +16,8 @@ def show_package(package_names):
 
     for package in package_names:
         try:
-            for package in package_names:
-                print(f"🗒️ Создаем сводку о пакете: {package}")
-                run_command(["pacman", "-Qii", package])
+            print(f"🗒️ Создаем сводку о пакете: {package}")
+            run_command(["pacman", "-Qii", package])
 
         except RuntimeError as e:
             print(e)
