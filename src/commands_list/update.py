@@ -13,6 +13,7 @@ def update_system():
     try:
         print("🔄 Синхронизируем репозитории системы...")
         run_command(["sudo", "pacman", "-Syy"])
+        run_command(["sudo", "pacman", "-Fy"])
         print("🎉 Синхронизация репозиториев завершена успешно!")
 
     except RuntimeError as e:
