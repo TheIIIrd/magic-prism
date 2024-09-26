@@ -5,7 +5,7 @@
 - repair_package(): Проверяет целостность системы.
 """
 
-from .utils import process_packages
+from .utils import run_command
 
 
 def repair_package():
