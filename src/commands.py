@@ -18,6 +18,7 @@ import sys
 from commands_list.install import install_package
 from commands_list.list import list_package
 from commands_list.remove import remove_package
+from commands_list.repair import repair_package
 from commands_list.search import search_package
 from commands_list.show import show_package
 from commands_list.update import update_system
@@ -35,6 +36,7 @@ def handle_arguments():
         "install": install_package,
         "list": list_package,
         "remove": remove_package,
+        "repair": repair_package,
         "search": search_package,
         "show": show_package,
         "update": update_system,
@@ -42,7 +44,7 @@ def handle_arguments():
     }
 
     if command in command_handlers:
-        if command in ["list", "update", "upgrade"]:
+        if command in ["list", "repair", "update", "upgrade"]:
             command_handlers[command]()
 
         # Для установки и удаления пакетов нам нужно больше аргументов
