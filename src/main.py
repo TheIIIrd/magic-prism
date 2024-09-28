@@ -1,16 +1,25 @@
 """
-Magic Prism Package Manager written in Python that helps unify the way utilities
-are installed across platforms. This is an abstraction for different package
-managers so that all commands have a common interface.
+Magic Prism Package Manager - Утилита на Python, 
+которая упрощает установку пакетов на различных платформах. 
+Этот проект обеспечивает абстракцию для различных менеджеров пакетов, 
+чтобы все команды имели единый интерфейс.
 """
 
 from commands import handle_arguments
 
 
 def main():
-    """Основная функция программы."""
+    """Основная функция программы.
+    Запускает обработку аргументов командной строки и
+    управляет основным потоком выполнения приложения.
+
+    Возвращает результат выполнения функции handle_arguments, которая
+    отвечает за интерпретацию и выполнение команд.
+    """
     return handle_arguments()
 
 
 if __name__ == "__main__":
+    # Точка входа в программу. При запуске этого файла
+    # вызывается функция main для начала работы приложения.
     main()
