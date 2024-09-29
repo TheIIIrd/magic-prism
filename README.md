@@ -12,7 +12,7 @@ It's now supported:
 - [ ] [flatpak](https://docs.flatpak.org/en/latest/using-flatpak.html)
 - [ ] [gnu guix](https://guix.gnu.org/manual/devel/en/html_node/)
 - [ ] [nix](https://nix.dev/manual/nix/2.24/)
-- [ ] [pacman](https://wiki.archlinux.org/title/Pacman)
+- [x] [pacman](https://wiki.archlinux.org/title/Pacman)
 - [ ] [paru](https://github.com/Morganamilo/paru)
 - [ ] [portage](https://wiki.gentoo.org/wiki/Portage)
 - [ ] [rpm](https://rpm.org/documentation.html)
