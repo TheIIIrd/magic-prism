@@ -25,7 +25,7 @@ def upgrade_system():
 
     # Словарь для сопоставления пакетных менеджеров с их командами
     upgrade_commands = {
-        "epm": [["epm", "update"]],
+        "epm": [["epm", "full-upgrade"]],
         "flatpak": [["flatpak", "update"]],
         "snap": [["sudo", "snap", "refresh"]],
         "paru": [["paru", "-Syu"]],

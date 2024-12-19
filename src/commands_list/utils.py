@@ -69,7 +69,7 @@ def process_packages(command, package_names, comment):
             print(e)
 
 
-def detect_package_managers():
+def detect_package_managers(ignore_epm=False):
     """Определяет установленные пакетные менеджеры.
 
     Returns:
@@ -104,10 +104,10 @@ def detect_package_managers():
             found_managers.append(manager)
 
     # Фильтруем ненужные пакетные менеджеры
-    return filter_package_managers(found_managers)
+    return filter_package_managers(found_managers, ignore_epm)
 
 
-def filter_package_managers(found_managers):
+def filter_package_managers(found_managers, ignore_epm):
     """Фильтрует ненужные пакетные менеджеры из списка.
 
     Args:
@@ -116,7 +116,7 @@ def filter_package_managers(found_managers):
     Returns:
         list: Отфильтрованный список пакетных менеджеров.
     """
-    if "epm" in found_managers:
+    if ("epm" in found_managers) and (not ignore_epm):
         found_managers = [
             m
             for m in found_managers
