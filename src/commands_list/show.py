@@ -26,7 +26,7 @@ def show_package(package_names):
     # Словарь для сопоставления пакетных менеджеров с их командами
     show_commands = {
         "epm": ["epm", "-ql"],
-        "flatpak": ["flatpak", "info"],
+        # "flatpak": ["flatpak", "info"],
         "snap": ["snap", "info"],
         "paru": ["paru", "-Qi"],
         "yay": ["yay", "-Qi"],
