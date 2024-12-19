@@ -47,7 +47,7 @@ def handle_arguments():
     command_handlers = {
         "help": print_help_message,
         "install": install_package,
-        "list": list_package,
+        "list": list_packages,
         "remove": remove_package,
         "repair": repair_package,
         "search": search_package,
