@@ -34,8 +34,8 @@ def upgrade_system():
         "pacman": [["sudo", "pacman", "-Syu", "--noconfirm"]],
         "apk": [["sudo", "apk", "upgrade"]],
         "xbps": [["sudo", "xbps-install", "-Su"]],
-        "apt": [["sudo", "apt", "upgrade"]],
-        "apt-get": [["sudo", "apt-get", "upgrade"]],
+        "apt": [["sudo", "apt", "full-upgrade"]],
+        "apt-get": [["sudo", "apt-get", "dist-upgrade"]],
     }
 
     for manager in package_managers:

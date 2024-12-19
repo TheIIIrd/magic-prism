@@ -45,7 +45,6 @@ def show_package(package_names):
                 process_packages(
                     show_commands[manager], package_names, "🗒️ Создаем сводку о пакете:"
                 )
-                print(f"🎉 Информация о пакетах успешно получена для {manager}!\n")
             except RuntimeError as e:
                 print(
                     f"\n❌ Ошибка при получении информации о пакетах для {manager}: {e}"
