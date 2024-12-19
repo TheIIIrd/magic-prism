@@ -17,6 +17,7 @@
 """
 
 import sys
+from commands_list.help import print_help_message
 from commands_list.install import install_package
 from commands_list.list import list_package
 from commands_list.remove import remove_package
@@ -44,6 +45,7 @@ def handle_arguments():
 
     command = sys.argv[1]
     command_handlers = {
+        "help": print_help_message,
         "install": install_package,
         "list": list_package,
         "remove": remove_package,
@@ -56,7 +58,7 @@ def handle_arguments():
 
     if command in command_handlers:
         # Для команд, которые не требуют указания пакета, просто вызываем их
-        if command in ["list", "repair", "update", "upgrade"]:
+        if command in ["help", "list", "repair", "update", "upgrade"]:
             command_handlers[command]()
 
         elif command in ["install", "remove", "search", "show"]:
@@ -64,7 +66,7 @@ def handle_arguments():
             package_names = sys.argv[2:]
 
             if not package_names:
-                print(f"Использование: python main.py {command} <название_пакета>...")
+                print(f"Использование: python main.py {command} [<название_пакета>...]")
                 return 1
 
             command_handlers[command](package_names)
@@ -75,17 +77,10 @@ def handle_arguments():
             "=============================\n"
             "Ошибка: команда не распознана\n"
             "=============================\n"
-            "Доступные команды:\n"
-            "- install   : установка пакетов в систему\n"
-            "- list      : вывод списка установленных пакетов\n"
-            "- remove    : удаление установленных пакетов\n"
-            "- repair    : проверка целостности пакетного менеджера и пакетов\n"
-            "- search    : поиск пакетов\n"
-            "- show      : отображение информации о пакете\n"
-            "- update    : синхронизация репозиториев системы\n"
-            "- upgrade   : обновление всех установленных пакетов\n"
-            "============================="
         )
+
+        print_help_message()
+
         return 1
 
     return 0
