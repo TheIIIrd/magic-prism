@@ -25,17 +25,17 @@ def upgrade_system():
 
     # Словарь для сопоставления пакетных менеджеров с их командами
     upgrade_commands = {
-        "epm": [["epm update"]],
-        "flatpak": [["flatpak update"]],
-        "snap": [["sudo snap refresh"]],
-        "paru": [["paru -Syu"]],
-        "yay": [["yay -Syu"]],
-        "dnf": [["sudo dnf upgrade"]],
-        "pacman": [["sudo pacman -Syu --noconfirm"]],
-        "apk": [["sudo apk upgrade"]],
-        "xbps": [["sudo xbps-install -Su"]],
-        "apt": [["sudo apt upgrade"]],
-        "apt-get": [["sudo apt-get upgrade"]],
+        "epm": [["epm", "update"]],
+        "flatpak": [["flatpak", "update"]],
+        "snap": [["sudo", "snap", "refresh"]],
+        "paru": [["paru", "-Syu"]],
+        "yay": [["yay", "-Syu"]],
+        "dnf": [["sudo", "dnf", "upgrade"]],
+        "pacman": [["sudo", "pacman", "-Syu", "--noconfirm"]],
+        "apk": [["sudo", "apk", "upgrade"]],
+        "xbps": [["sudo", "xbps-install", "-Su"]],
+        "apt": [["sudo", "apt", "upgrade"]],
+        "apt-get": [["sudo", "apt-get", "upgrade"]],
     }
 
     for manager in package_managers:

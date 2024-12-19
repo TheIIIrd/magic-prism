@@ -25,17 +25,17 @@ def update_system():
 
     # Словарь для сопоставления пакетных менеджеров с их командами
     update_commands = {
-        "epm": [["epm update"]],
-        "flatpak": [["flatpak update"]],
-        "snap": [["sudo snap refresh"]],
-        "paru": [["paru -Sy"]],
-        "yay": [["yay -Sy"]],
-        "dnf": [["sudo dnf makecache"], ["sudo dnf check-update"]],
-        "pacman": [["sudo pacman -Syy"], ["sudo pacman -Fy"]],
-        "apk": [["sudo apk update"]],
-        "xbps": [["sudo xbps-install -Syu"]],
-        "apt": [["sudo apt update"]],
-        "apt-get": [["sudo apt-get update"]],
+        "epm": [["epm", "update"]],
+        "flatpak": [["flatpak", "update"]],
+        "snap": [["sudo", "snap", "refresh"]],
+        "paru": [["paru", "-Sy"]],
+        "yay": [["yay", "-Sy"]],
+        "dnf": [["sudo", "dnf", "makecache"], ["sudo", "dnf", "check-update"]],
+        "pacman": [["sudo", "pacman", "-Syy"], ["sudo", "pacman", "-Fy"]],
+        "apk": [["sudo", "apk", "update"]],
+        "xbps": [["sudo", "xbps-install", "-Syu"]],
+        "apt": [["sudo", "apt", "update"]],
+        "apt-get": [["sudo", "apt-get", "update"]],
     }
 
     for manager in package_managers:
