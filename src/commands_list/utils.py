@@ -103,6 +103,35 @@ def detect_package_managers():
         if is_command_available(command):
             found_managers.append(manager)
 
+    # Фильтруем ненужные пакетные менеджеры
+    return filter_package_managers(found_managers)
+
+
+def filter_package_managers(found_managers):
+    """Фильтрует ненужные пакетные менеджеры из списка.
+
+    Args:
+        found_managers (list): Список найденных пакетных менеджеров.
+
+    Returns:
+        list: Отфильтрованный список пакетных менеджеров.
+    """
+    if "epm" in found_managers:
+        found_managers = [
+            m
+            for m in found_managers
+            if m not in ["flatpak", "dnf", "apt", "apt-get", "rpm", "dpkg"]
+        ]
+
+    if "apt" in found_managers:
+        found_managers = [m for m in found_managers if m not in ["apt-get", "dpkg"]]
+
+    if "paru" in found_managers:
+        found_managers = [m for m in found_managers if m not in ["yay", "pacman"]]
+
+    if "yay" in found_managers:
+        found_managers = [m for m in found_managers if m not in ["pacman"]]
+
     return found_managers
 
 
