@@ -3,6 +3,7 @@
 Функция `run_command` запускает указанную команду и возвращает ее вывод.
 Функция `process_packages` обрабатывает список пакетов, вызывая `run_command` для каждого пакета.
 Функция `detect_package_managers` определяет, какие пакетные менеджеры используются в системе.
+Функция `is_command_available` проверяет, доступна ли команда в системе.
 
 Использование:
     output = run_command(["команда", "аргумент1", "аргумент2"])
@@ -72,7 +73,9 @@ def detect_package_managers():
     """Определяет установленные пакетные менеджеры.
 
     Returns:
-        list: Список названий пакетных менеджеров ('apt', 'dnf', 'pacman') или пустой список, если ни один не найден.
+        list: Список названий пакетных менеджеров
+        ('flatpak', 'nix', 'epm', 'apt-get', ...)
+        или пустой список, если ни один не найден.
     """
     package_managers = {
         "flatpak": ["flatpak"],
@@ -113,9 +116,14 @@ def is_command_available(command):
         bool: True, если команда доступна, иначе False.
     """
     try:
+        # Запускаем команду с флагом --version для проверки доступности
         subprocess.run(
-            [command, "--version"], stdout=subprocess.PIPE, stderr=subprocess.PIPE
+            [command, "--version"],
+            check=True,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
         )
         return True
-    except FileNotFoundError:
+    except (FileNotFoundError, subprocess.CalledProcessError):
+        # Если команда не найдена или завершилась с ошибкой, возвращаем False
         return False
