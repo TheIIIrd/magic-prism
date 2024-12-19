@@ -78,11 +78,11 @@ def detect_package_managers():
         или пустой список, если ни один не найден.
     """
     package_managers = {
+        "epm": ["epm", "--version"],
         "flatpak": ["flatpak", "--version"],
         "snap": ["snap", "version"],
         "nix": ["nix", "--version"],
         "guix": ["guix", "--version"],
-        "epm": ["epm", "--version"],
         "paru": ["paru", "--version"],
         "yay": ["yay", "--version"],
         "zypper": ["zypper", "--version"],
