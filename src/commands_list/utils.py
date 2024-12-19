@@ -78,31 +78,30 @@ def detect_package_managers():
         или пустой список, если ни один не найден.
     """
     package_managers = {
-        "flatpak": ["flatpak"],
-        "snap": ["snap"],
-        "nix": ["nix"],
-        "guix": ["guix"],
-        "epm": ["epm"],
-        "paru": ["paru"],
-        "yay": ["yay"],
-        "zypper": ["zypper"],
-        "dnf": ["dnf"],
-        "pacman": ["pacman"],
-        "apk": ["apk"],
-        "emerge": ["emerge"],
-        "xbps": ["xbps"],
-        "apt": ["apt"],
-        "apt-get": ["apt-get"],
-        "rpm": ["rpm"],
-        "dpkg": ["dpkg"],
+        "flatpak": ["flatpak", "--version"],
+        "snap": ["snap", "version"],
+        "nix": ["nix", "--version"],
+        "guix": ["guix", "--version"],
+        "epm": ["epm", "--version"],
+        "paru": ["paru", "--version"],
+        "yay": ["yay", "--version"],
+        "zypper": ["zypper", "--version"],
+        "dnf": ["dnf", "--version"],
+        "pacman": ["pacman", "--version"],
+        "apk": ["apk", "--version"],
+        "emerge": ["emerge", "--version"],
+        "xbps": ["xbps-install", "--version"],
+        "apt": ["apt", "version"],
+        "apt-get": ["apt-get", "--version"],
+        "rpm": ["rpm", "--version"],
+        "dpkg": ["dpkg", "--version"],
     }
 
     found_managers = []
 
-    for manager, commands in package_managers.items():
-        for command in commands:
-            if is_command_available(command):
-                found_managers.append(manager)
+    for manager, command in package_managers.items():
+        if is_command_available(command):
+            found_managers.append(manager)
 
     return found_managers
 
@@ -119,7 +118,7 @@ def is_command_available(command):
     try:
         # Запускаем команду с флагом --version для проверки доступности
         subprocess.run(
-            [command, "--version"],
+            command,
             check=True,
             stdout=subprocess.PIPE,
             stderr=subprocess.PIPE,
