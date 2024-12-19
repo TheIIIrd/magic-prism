@@ -19,7 +19,7 @@
 import sys
 from commands_list.help import print_help_message
 from commands_list.install import install_package
-from commands_list.list import list_package
+from commands_list.list import list_packages
 from commands_list.remove import remove_package
 from commands_list.repair import repair_package
 from commands_list.search import search_package
