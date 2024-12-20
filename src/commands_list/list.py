@@ -39,7 +39,7 @@ def list_packages():
         if manager in list_commands:
             try:
                 print(
-                    f"🗒️ Создаем список установленных пакетов с помощью {manager}...\n"
+                    f"📋 Создаем список установленных пакетов с помощью {manager}...\n"
                 )
                 for command in list_commands[manager]:
                     run_command(command)
