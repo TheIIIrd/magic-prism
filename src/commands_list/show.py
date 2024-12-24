@@ -25,7 +25,7 @@ def show_package(package_names):
 
     # Словарь для сопоставления пакетных менеджеров с их командами
     show_commands = {
-        "epm": [["epmqi"], ["epmql"]],
+        "epm": [["epmqi"]],
         # "flatpak": [["flatpak", "info"]],
         "snap": [["snap", "info"]],
         "paru": [["paru", "-Qi"]],
@@ -46,7 +46,6 @@ def show_package(package_names):
                     process_packages(
                         command, package_names, "\n📋 Создаем сводку о пакете:"
                     )
-                    print()
             except RuntimeError as e:
                 print(
                     f"\n❌ Ошибка при получении информации о пакетах для {manager}: {e}"

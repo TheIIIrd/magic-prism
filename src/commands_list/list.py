@@ -43,7 +43,7 @@ def list_packages():
                 )
                 for command in list_commands[manager]:
                     run_command(command)
-                print()
+                    print()
             except RuntimeError as e:
                 print(
                     f"\n❌ Ошибка при получении списка установленных пакетов для {manager}: {e}"
