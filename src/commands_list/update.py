@@ -25,7 +25,7 @@ def update_system():
 
     # Словарь для сопоставления пакетных менеджеров с их командами
     update_commands = {
-        "epm": [["epm", "update"]],
+        "epm": [["sudo", "epm", "update"]],
         "flatpak": [["flatpak", "update"]],
         "snap": [["sudo", "snap", "refresh"]],
         "paru": [["paru", "-Sy"]],
@@ -41,7 +41,7 @@ def update_system():
     for manager in package_managers:
         if manager in update_commands:
             try:
-                print(f"🔄 Синхронизируем репозитории с помощью {manager}...\n")
+                print(f"🔄 Синхронизируем репозитории с помощью {manager}...")
                 for command in update_commands[manager]:
                     run_command(command)
                 print(

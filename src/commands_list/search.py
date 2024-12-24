@@ -41,9 +41,9 @@ def search_package(package_names):
     for manager in package_managers:
         if manager in search_commands:
             try:
-                print(f"🔍 Ищем пакеты с помощью {manager}...\n")
+                print(f"🔍 Ищем пакеты с помощью {manager}...")
                 process_packages(
-                    search_commands[manager], package_names, "🔍 Ищем пакет:"
+                    search_commands[manager], package_names, "\n🔍 Ищем пакет:"
                 )
             except RuntimeError as e:
                 print(f"\n❌ Ошибка при поиске пакетов для {manager}: {e}")

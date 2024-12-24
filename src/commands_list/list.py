@@ -39,10 +39,11 @@ def list_packages():
         if manager in list_commands:
             try:
                 print(
-                    f"📋 Создаем список установленных пакетов с помощью {manager}...\n"
+                    f"📋 Создаем список установленных пакетов с помощью {manager}..."
                 )
                 for command in list_commands[manager]:
                     run_command(command)
+                print()
             except RuntimeError as e:
                 print(
                     f"\n❌ Ошибка при получении списка установленных пакетов для {manager}: {e}"

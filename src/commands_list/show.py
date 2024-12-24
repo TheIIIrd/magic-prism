@@ -41,9 +41,9 @@ def show_package(package_names):
     for manager in package_managers:
         if manager in show_commands:
             try:
-                print(f"📋 Получаем информацию о пакетах с помощью {manager}...\n")
+                print(f"📋 Получаем информацию о пакетах с помощью {manager}...")
                 process_packages(
-                    show_commands[manager], package_names, "📋 Создаем сводку о пакете:"
+                    show_commands[manager], package_names, "\n📋 Создаем сводку о пакете:"
                 )
             except RuntimeError as e:
                 print(

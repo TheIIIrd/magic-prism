@@ -25,7 +25,7 @@ def upgrade_system():
 
     # Словарь для сопоставления пакетных менеджеров с их командами
     upgrade_commands = {
-        "epm": [["epm", "full-upgrade"]],
+        "epm": [["sudo", "epm", "full-upgrade"]],
         "flatpak": [["flatpak", "update"]],
         "snap": [["sudo", "snap", "refresh"]],
         "paru": [["paru", "-Syu"]],
@@ -41,7 +41,7 @@ def upgrade_system():
     for manager in package_managers:
         if manager in upgrade_commands:
             try:
-                print(f"🔄 Обновляем установленные пакеты с помощью {manager}...\n")
+                print(f"🔄 Обновляем установленные пакеты с помощью {manager}...")
                 for command in upgrade_commands[manager]:
                     run_command(command)
                 print(f"🎉 Обновление пакетов завершено успешно для {manager}!\n")
