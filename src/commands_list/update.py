@@ -49,5 +49,5 @@ def update_system():
                 )
             except RuntimeError as e:
                 print(f"\n❌ Ошибка при синхронизации для {manager}: {e}")
-        # else:
-        #     print(f"\n❌ Неизвестный пакетный менеджер: {manager}")
+        else:
+            print(f"\n❌ Неизвестный пакетный менеджер: {manager}")

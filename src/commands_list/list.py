@@ -22,7 +22,7 @@ def list_packages():
 
     # Словарь для сопоставления пакетных менеджеров с их командами
     list_commands = {
-        "epm": [["epm", "-qa"]],
+        "epm": [["epm", "-qa"], ["epm", "programs"]],
         "flatpak": [["flatpak", "list"]],
         "snap": [["snap", "list"]],
         "paru": [["paru", "-Q"]],
@@ -48,5 +48,5 @@ def list_packages():
                 print(
                     f"\n❌ Ошибка при получении списка установленных пакетов для {manager}: {e}"
                 )
-        # else:
-        #     print(f"\n❌ Неизвестный пакетный менеджер: {manager}")
+        else:
+            print(f"\n❌ Неизвестный пакетный менеджер: {manager}")
