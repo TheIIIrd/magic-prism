@@ -17,7 +17,7 @@ def update_system():
     Возвращает:
         None
     """
-    package_managers = detect_package_managers(ignore_epm=True)
+    package_managers = detect_package_managers()
 
     if not package_managers:
         print("❌ Не удалось определить доступные пакетные менеджеры.")
@@ -25,7 +25,7 @@ def update_system():
 
     # Словарь для сопоставления пакетных менеджеров с их командами
     update_commands = {
-        # "epm": [["epm", "full-upgrade"]],
+        "epm": [["epm", "update"]],
         "flatpak": [["flatpak", "update"]],
         "snap": [["sudo", "snap", "refresh"]],
         "paru": [["paru", "-Sy"]],
