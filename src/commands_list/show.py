@@ -2,25 +2,25 @@
 Модуль для вывода информации о пакетах с помощью различных пакетных менеджеров.
 
 Функции:
-- show_package(package_names): Выводит информацию о указанных пакетах.
+- show_pkg(pkg_names): Выводит информацию о указанных пакетах.
 """
 
-from .utils import process_packages, detect_package_managers, check_package_managers
+from .utils import process_pkgs, detect_pkg_managers, check_pkg_managers
 from .colors import color_text
 
 
-def show_package(package_names):
+def show_pkg(pkg_names):
     """Выводит информацию о указанных пакетах с помощью доступных пакетных менеджеров.
 
     Args:
-        package_names (list): Список имен пакетов для отображения информации.
+        pkg_names (list): Список имен пакетов для отображения информации.
 
     Returns:
         None
     """
-    package_managers = detect_package_managers()
+    pkg_managers = detect_pkg_managers()
 
-    if not check_package_managers(package_managers):
+    if not check_pkg_managers(pkg_managers):
         return
 
     # Словарь для сопоставления пакетных менеджеров с их командами
@@ -38,7 +38,7 @@ def show_package(package_names):
         "apt-get": [["apt-get", "show"]],
     }
 
-    for manager in package_managers:
+    for manager in pkg_managers:
         if manager in show_commands:
             try:
                 print(
@@ -48,9 +48,9 @@ def show_package(package_names):
                     )
                 )
                 for command in show_commands[manager]:
-                    process_packages(
+                    process_pkgs(
                         command,
-                        package_names,
+                        pkg_names,
                         color_text("\n📋 Создаем сводку о пакете:", "magenta"),
                     )
                     print()

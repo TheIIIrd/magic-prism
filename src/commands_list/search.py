@@ -2,25 +2,25 @@
 Модуль для поиска пакетов с помощью различных пакетных менеджеров.
 
 Функции:
-- search_package(package_names): Ищет указанные пакеты.
+- search_pkg(pkg_names): Ищет указанные пакеты.
 """
 
-from .utils import process_packages, detect_package_managers, check_package_managers
+from .utils import process_pkgs, detect_pkg_managers, check_pkg_managers
 from .colors import color_text
 
 
-def search_package(package_names):
+def search_pkg(pkg_names):
     """Ищет указанные пакеты с помощью доступных пакетных менеджеров.
 
     Args:
-        package_names (list): Список имен пакетов для поиска.
+        pkg_names (list): Список имен пакетов для поиска.
 
     Returns:
         None
     """
-    package_managers = detect_package_managers()
+    pkg_managers = detect_pkg_managers()
 
-    if not check_package_managers(package_managers):
+    if not check_pkg_managers(pkg_managers):
         return
 
     # Словарь для сопоставления пакетных менеджеров с их командами
@@ -38,14 +38,14 @@ def search_package(package_names):
         "apt-get": [["apt-get", "search"]],
     }
 
-    for manager in package_managers:
+    for manager in pkg_managers:
         if manager in search_commands:
             try:
                 print(color_text(f"🔍 Ищем пакеты с помощью {manager}...", "magenta"))
                 for command in search_commands[manager]:
-                    process_packages(
+                    process_pkgs(
                         command,
-                        package_names,
+                        pkg_names,
                         color_text("\n🔍 Ищем пакет:", "magenta"),
                     )
                     print()

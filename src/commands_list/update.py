@@ -5,7 +5,7 @@
 - update_system(): Синхронизирует репозитории системы.
 """
 
-from .utils import run_command, detect_package_managers, check_package_managers
+from .utils import run_command, detect_pkg_managers, check_pkg_managers
 from .colors import color_text
 
 
@@ -18,9 +18,9 @@ def update_system():
     Возвращает:
         None
     """
-    package_managers = detect_package_managers()
+    pkg_managers = detect_pkg_managers()
 
-    if not check_package_managers(package_managers):
+    if not check_pkg_managers(pkg_managers):
         return
 
     # Словарь для сопоставления пакетных менеджеров с их командами
@@ -38,7 +38,7 @@ def update_system():
         "apt-get": [["sudo", "apt-get", "update"]],
     }
 
-    for manager in package_managers:
+    for manager in pkg_managers:
         if manager in update_commands:
             try:
                 print(

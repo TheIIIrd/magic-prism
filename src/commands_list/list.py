@@ -2,22 +2,22 @@
 Модуль для вывода списка установленных пакетов с использованием различных пакетных менеджеров.
 
 Функции:
-- list_packages(): Выводит список установленных пакетов.
+- list_pkgs(): Выводит список установленных пакетов.
 """
 
-from .utils import run_command, detect_package_managers, check_package_managers
+from .utils import run_command, detect_pkg_managers, check_pkg_managers
 from .colors import color_text
 
 
-def list_packages():
+def list_pkgs():
     """Выводит список установленных пакетов с помощью доступных пакетных менеджеров.
 
     Returns:
         None
     """
-    package_managers = detect_package_managers()
+    pkg_managers = detect_pkg_managers()
 
-    if not check_package_managers(package_managers):
+    if not check_pkg_managers(pkg_managers):
         return
 
     # Словарь для сопоставления пакетных менеджеров с их командами
@@ -35,7 +35,7 @@ def list_packages():
         "apt-get": [["apt-get", "list", "--installed"]],
     }
 
-    for manager in package_managers:
+    for manager in pkg_managers:
         if manager in list_commands:
             try:
                 print(

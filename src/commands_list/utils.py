@@ -1,16 +1,16 @@
 """
 Этот модуль предоставляет функции для выполнения команд в системе.
 Функция `run_command` запускает указанную команду и возвращает ее вывод.
-Функция `process_packages` обрабатывает список пакетов, вызывая `run_command` для каждого пакета.
-Функция `detect_package_managers` определяет, какие пакетные менеджеры используются в системе.
-Функция `check_package_managers` проверяет доступные пакетные менеджеры.
+Функция `process_pkgs` обрабатывает список пакетов, вызывая `run_command` для каждого пакета.
+Функция `detect_pkg_managers` определяет, какие пакетные менеджеры используются в системе.
+Функция `check_pkg_managers` проверяет доступные пакетные менеджеры.
 Функция `is_command_available` проверяет, доступна ли команда в системе.
 
 Использование:
     output = run_command(["команда", "аргумент1", "аргумент2"])
     print(output)
 
-    process_packages("команда", ["пакет1", "пакет2"], "Комментарий:")
+    process_pkgs("команда", ["пакет1", "пакет2"], "Комментарий:")
 """
 
 import subprocess
@@ -46,32 +46,32 @@ def run_command(command):
         ) from e
 
 
-def process_packages(command, package_names, comment):
+def process_pkgs(command, pkg_names, comment):
     """Обрабатывает список пакетов с указанной командой,
     выводя комментарий для каждого пакета.
 
     Args:
         command (str): Команда, которую нужно выполнить.
-        package_names (list): Список имен пакетов для обработки.
+        pkg_names (list): Список имен пакетов для обработки.
         comment (str): Комментарий, отображаемый для каждого пакета.
 
     Returns:
         None
     """
-    if not package_names:
+    if not pkg_names:
         print(color_text("❌ Название пакета не указано.", "red"))
         return
 
-    for package in package_names:
+    for pkg in pkg_names:
         try:
-            print(comment, package)
-            run_command(command + [package])  # Запуск команды для каждого пакета
+            print(comment, pkg)
+            run_command(command + [pkg])  # Запуск команды для каждого пакета
 
         except RuntimeError as e:
             print(e)
 
 
-def detect_package_managers():
+def detect_pkg_managers():
     """Определяет установленные пакетные менеджеры.
 
     Returns:
@@ -79,7 +79,7 @@ def detect_package_managers():
         ('flatpak', 'nix', 'epm', 'apt-get', ...)
         или пустой список, если ни один не найден.
     """
-    package_managers = {
+    pkg_managers = {
         "epm": ["epm", "--version"],
         "flatpak": ["flatpak", "--version"],
         "snap": ["snap", "version"],
@@ -101,15 +101,15 @@ def detect_package_managers():
 
     found_managers = []
 
-    for manager, command in package_managers.items():
+    for manager, command in pkg_managers.items():
         if is_command_available(command):
             found_managers.append(manager)
 
     # Фильтруем ненужные пакетные менеджеры
-    return filter_package_managers(found_managers)
+    return filter_pkg_managers(found_managers)
 
 
-def filter_package_managers(found_managers):
+def filter_pkg_managers(found_managers):
     """Фильтрует ненужные пакетные менеджеры из списка.
 
     Args:
@@ -137,7 +137,7 @@ def filter_package_managers(found_managers):
     return found_managers
 
 
-def check_package_managers(package_managers):
+def check_pkg_managers(pkg_managers):
     """Проверяет доступные пакетные менеджеры в системе.
 
     Если список пуст, выводит сообщение об ошибке и возвращает False.
@@ -147,7 +147,7 @@ def check_package_managers(package_managers):
         bool: True, если пакетные менеджеры найдены, иначе False.
     """
 
-    if not package_managers:
+    if not pkg_managers:
         print(
             color_text("❌ Не удалось определить доступные пакетные менеджеры.", "red")
         )

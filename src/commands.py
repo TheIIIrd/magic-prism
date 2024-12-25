@@ -19,12 +19,12 @@
 import sys
 from commands_list.colors import color_text
 from commands_list.help import print_help_message
-from commands_list.install import install_package
-from commands_list.list import list_packages
-from commands_list.remove import remove_package
-from commands_list.repair import repair_package
-from commands_list.search import search_package
-from commands_list.show import show_package
+from commands_list.install import install_pkg
+from commands_list.list import list_pkgs
+from commands_list.remove import remove_pkg
+from commands_list.repair import repair_pkg
+from commands_list.search import search_pkg
+from commands_list.show import show_pkg
 from commands_list.update import update_system
 from commands_list.upgrade import upgrade_system
 
@@ -47,12 +47,12 @@ def handle_arguments():
     command = sys.argv[1]
     command_handlers = {
         "help": print_help_message,
-        "install": install_package,
-        "list": list_packages,
-        "remove": remove_package,
-        "repair": repair_package,
-        "search": search_package,
-        "show": show_package,
+        "install": install_pkg,
+        "list": list_pkgs,
+        "remove": remove_pkg,
+        "repair": repair_pkg,
+        "search": search_pkg,
+        "show": show_pkg,
         "update": update_system,
         "upgrade": upgrade_system,
     }
@@ -64,13 +64,13 @@ def handle_arguments():
 
         elif command in ["install", "remove", "search", "show"]:
             # Для команд, требующих указания имени пакета
-            package_names = sys.argv[2:]
+            pkg_names = sys.argv[2:]
 
-            if not package_names:
+            if not pkg_names:
                 print(f"Использование: python main.py {command} [<название_пакета>...]")
                 return 1
 
-            command_handlers[command](package_names)
+            command_handlers[command](pkg_names)
 
     else:
         # Если команда не распознана, выводим сообщение об ошибке

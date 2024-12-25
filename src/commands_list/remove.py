@@ -2,72 +2,73 @@
 Модуль для удаления пакетов с помощью различных пакетных менеджеров.
 
 Функции:
-- remove_package(package_names): Удаляет указанные пакеты.
-- is_package_installed(package_name, package_manager) Проверяет, установлен ли пакет.
+- remove_pkg(pkg_names): Удаляет указанные пакеты.
+- is_pkg_installed(pkg_name, pkg_manager) Проверяет, установлен ли пакет.
 """
 
-from .utils import run_command, detect_package_managers, check_package_managers
+from .utils import run_command, detect_pkg_managers, check_pkg_managers
 from .colors import color_text
 
 
-def remove_package(package_names):
+def remove_pkg(pkg_names):
     """Удаляет указанные пакеты с помощью поддерживаемых пакетных менеджеров.
 
     Args:
-        package_names (list): Список имен пакетов, которые необходимо удалить.
+        pkg_names (list): Список имен пакетов, которые необходимо удалить.
 
     Returns:
         None
     """
-    if not package_names:
+    if not pkg_names:
         print(color_text("❌ Названия пакетов не указаны.", "red"))
         return
 
-    package_managers = detect_package_managers()
+    pkg_managers = detect_pkg_managers()
 
-    if not check_package_managers(package_managers):
+    if not check_pkg_managers(pkg_managers):
         return
 
     # Словарь для сопоставления пакетных менеджеров с их командами удаления
     remove_commands = {
-        "epm": ["sudo", "epme"],
-        "flatpak": ["flatpak", "uninstall", "--remove-data"],
-        "snap": ["snap", "remove"],
-        "paru": ["paru", "-Rsn"],
-        "yay": ["yay", "-Rsn"],
-        "dnf": ["dnf", "remove"],
-        "pacman": ["sudo", "pacman", "-Rsn", "--noconfirm"],
-        "apk": ["sudo", "apk", "del"],
-        "xbps": ["sudo", "xbps-remove", "-r"],
-        "apt": ["sudo", "apt", "remove"],
-        "apt-get": ["sudo", "apt-get", "remove"],
+        "epm": [["sudo", "epme"]],
+        "flatpak": [["flatpak", "uninstall", "--remove-data"]],
+        "snap": [["snap", "remove"]],
+        "paru": [["paru", "-Rsn"]],
+        "yay": [["yay", "-Rsn"]],
+        "dnf": [["dnf", "remove"]],
+        "pacman": [["sudo", "pacman", "-Rsn", "--noconfirm"]],
+        "apk": [["sudo", "apk", "del"]],
+        "xbps": [["sudo", "xbps-remove", "-r"]],
+        "apt": [["sudo", "apt", "remove"]],
+        "apt-get": [["sudo", "apt-get", "remove"]],
     }
 
     # Словарь для хранения пакетов по пакетным менеджерам
-    packages_to_remove = {manager: [] for manager in package_managers}
+    pkgs_to_remove = {manager: [] for manager in pkg_managers}
 
     # Проверяем, какие пакеты установлены в каких менеджерах
-    for package in package_names:
-        for manager in package_managers:
-            if is_package_installed(package, manager):
-                packages_to_remove[manager].append(package)
+    for pkg in pkg_names:
+        for manager in pkg_managers:
+            if is_pkg_installed(pkg, manager):
+                pkgs_to_remove[manager].append(pkg)
 
     # Удаляем пакеты в зависимости от их менеджера
-    for manager, packages in packages_to_remove.items():
-        if packages:
+    for manager, pkgs in pkgs_to_remove.items():
+        if pkgs:
             try:
                 print(
                     color_text(
-                        f"🗑 Удаляем пакеты: {', '.join(packages)} с помощью {manager}...",
+                        f"🗑 Удаляем пакеты: {', '.join(pkgs)} с помощью {manager}...",
                         "yellow",
                     )
                 )
 
-                run_command(remove_commands[manager] + packages)
+                for command in remove_commands[manager]:
+                    run_command(command + pkgs)  # Запуск команды для удаления пакетов
 
                 print(
                     color_text(
-                        f"🎉 Удаление {', '.join(packages)} завершено успешно для {manager}!",
+                        f"🎉 Удаление {', '.join(pkgs)} завершено успешно для {manager}!",
                         "green",
                     )
                 )
@@ -81,12 +82,12 @@ def remove_package(package_names):
             print(color_text(f"👁️‍🗨️ Нет пакетов для удаления в {manager}.", "blue"))
 
 
-def is_package_installed(package_name, package_manager):
+def is_pkg_installed(pkg_name, pkg_manager):
     """Проверяет, установлен ли пакет в указанном пакетном менеджере.
 
     Args:
-        package_name (str): Имя пакета.
-        package_manager (str): Имя пакетного менеджера.
+        pkg_name (str): Имя пакета.
+        pkg_manager (str): Имя пакетного менеджера.
 
     Returns:
         bool: True, если пакет установлен, иначе False.
@@ -94,21 +95,21 @@ def is_package_installed(package_name, package_manager):
 
     # Словарь с командами для проверки установки пакетов
     commands = {
-        "epm": ["rpm", "-q", package_name],
-        "flatpak": ["flatpak", "info", package_name],
-        "snap": ["snap", "list", package_name],
-        "paru": ["pacman", "-Q", package_name],  # основа на pacman
-        "yay": ["pacman", "-Q", package_name],  # основа на pacman
-        "dnf": ["dnf", "list", "installed", package_name],
-        "pacman": ["pacman", "-Q", package_name],
-        "apk": ["apk", "info", package_name],
-        "xbps": ["xbps-query", "-e", package_name],
-        "apt": ["dpkg", "-s", package_name],
-        "apt-get": ["dpkg", "-s", package_name],
+        "epm": ["rpm", "-q", pkg_name],
+        "flatpak": ["flatpak", "info", pkg_name],
+        "snap": ["snap", "list", pkg_name],
+        "paru": ["pacman", "-Q", pkg_name],  # основа на pacman
+        "yay": ["pacman", "-Q", pkg_name],  # основа на pacman
+        "dnf": ["dnf", "list", "installed", pkg_name],
+        "pacman": ["pacman", "-Q", pkg_name],
+        "apk": ["apk", "info", pkg_name],
+        "xbps": ["xbps-query", "-e", pkg_name],
+        "apt": ["dpkg", "-s", pkg_name],
+        "apt-get": ["dpkg", "-s", pkg_name],
     }
 
     # Получаем команду для заданного пакетного менеджера
-    command = commands.get(package_manager)
+    command = commands.get(pkg_manager)
 
     if command:
         try:
