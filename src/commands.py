@@ -17,6 +17,7 @@
 """
 
 import sys
+from commands_list.colors import color_text
 from commands_list.help import print_help_message
 from commands_list.install import install_package
 from commands_list.list import list_packages
@@ -74,9 +75,10 @@ def handle_arguments():
     else:
         # Если команда не распознана, выводим сообщение об ошибке
         print(
-            "================================\n"
-            "❌ Ошибка: команда не распознана\n"
-            "================================\n"
+            "================================\n",
+            color_text("❌ Ошибка: команда не распознана\n", "red"),
+            "================================\n",
+            sep="",
         )
 
         print_help_message()

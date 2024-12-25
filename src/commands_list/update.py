@@ -6,6 +6,7 @@
 """
 
 from .utils import run_command, detect_package_managers
+from .colors import color_text
 
 
 def update_system():
@@ -20,7 +21,9 @@ def update_system():
     package_managers = detect_package_managers()
 
     if not package_managers:
-        print("❌ Не удалось определить доступные пакетные менеджеры.")
+        print(
+            color_text("❌ Не удалось определить доступные пакетные менеджеры.", "red")
+        )
         return
 
     # Словарь для сопоставления пакетных менеджеров с их командами
@@ -41,13 +44,25 @@ def update_system():
     for manager in package_managers:
         if manager in update_commands:
             try:
-                print(f"🔄 Синхронизируем репозитории с помощью {manager}...")
+                print(
+                    color_text(
+                        f"🔄 Синхронизируем репозитории с помощью {manager}...",
+                        "magenta",
+                    )
+                )
                 for command in update_commands[manager]:
                     run_command(command)
                 print(
-                    f"🎉 Синхронизация репозиториев завершена успешно для {manager}!\n"
+                    color_text(
+                        f"🎉 Синхронизация репозиториев завершена успешно для {manager}!\n",
+                        "green",
+                    )
                 )
             except RuntimeError as e:
-                print(f"\n❌ Ошибка при синхронизации для {manager}: {e}")
+                print(
+                    color_text(
+                        f"\n❌ Ошибка при синхронизации для {manager}: {e}", "red"
+                    )
+                )
         else:
-            print(f"\n❌ Неизвестный пакетный менеджер: {manager}")
+            print(color_text(f"\n❌ Неизвестный пакетный менеджер: {manager}", "red"))

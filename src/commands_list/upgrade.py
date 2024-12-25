@@ -6,6 +6,7 @@
 """
 
 from .utils import run_command, detect_package_managers
+from .colors import color_text  # Импортируем color_text
 
 
 def upgrade_system():
@@ -20,7 +21,9 @@ def upgrade_system():
     package_managers = detect_package_managers()
 
     if not package_managers:
-        print("❌ Не удалось определить доступные пакетные менеджеры.")
+        print(
+            color_text("❌ Не удалось определить доступные пакетные менеджеры.", "red")
+        )
         return
 
     # Словарь для сопоставления пакетных менеджеров с их командами
@@ -41,11 +44,25 @@ def upgrade_system():
     for manager in package_managers:
         if manager in upgrade_commands:
             try:
-                print(f"🔄 Обновляем установленные пакеты с помощью {manager}...")
+                print(
+                    color_text(
+                        f"🔄 Обновляем установленные пакеты с помощью {manager}...",
+                        "magenta",
+                    )
+                )
                 for command in upgrade_commands[manager]:
                     run_command(command)
-                print(f"🎉 Обновление пакетов завершено успешно для {manager}!\n")
+                print(
+                    color_text(
+                        f"🎉 Обновление пакетов завершено успешно для {manager}!\n",
+                        "green",
+                    )
+                )
             except RuntimeError as e:
-                print(f"\n❌ Ошибка при обновлении пакетов для {manager}: {e}")
+                print(
+                    color_text(
+                        f"\n❌ Ошибка при обновлении пакетов для {manager}: {e}", "red"
+                    )
+                )
         else:
-            print(f"\n❌ Неизвестный пакетный менеджер: {manager}")
+            print(color_text(f"\n❌ Неизвестный пакетный менеджер: {manager}", "red"))

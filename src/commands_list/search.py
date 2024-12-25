@@ -20,7 +20,9 @@ def search_package(package_names):
     package_managers = detect_package_managers()
 
     if not package_managers:
-        print("❌ Не удалось определить доступные пакетные менеджеры.")
+        print(
+            color_text("❌ Не удалось определить доступные пакетные менеджеры.", "red")
+        )
         return
 
     # Словарь для сопоставления пакетных менеджеров с их командами
@@ -41,11 +43,17 @@ def search_package(package_names):
     for manager in package_managers:
         if manager in search_commands:
             try:
-                print(f"🔍 Ищем пакеты с помощью {manager}...")
+                print(color_text(f"🔍 Ищем пакеты с помощью {manager}...", "magenta"))
                 for command in search_commands[manager]:
                     process_packages(
-                        command, package_names, "\n🔍 Ищем пакет:"
+                        command,
+                        package_names,
+                        color_text("\n🔍 Ищем пакет:", "magenta"),
                     )
                     print()
             except RuntimeError as e:
-                print(f"\n❌ Ошибка при поиске пакетов для {manager}: {e}")
+                print(
+                    color_text(
+                        f"\n❌ Ошибка при поиске пакетов для {manager}: {e}", "red"
+                    )
+                )

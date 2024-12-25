@@ -6,6 +6,7 @@
 """
 
 from .utils import run_command, detect_package_managers
+from .colors import color_text
 
 
 def list_packages():
@@ -17,7 +18,9 @@ def list_packages():
     package_managers = detect_package_managers()
 
     if not package_managers:
-        print("❌ Не удалось определить доступные пакетные менеджеры.")
+        print(
+            color_text("❌ Не удалось определить доступные пакетные менеджеры.", "red")
+        )
         return
 
     # Словарь для сопоставления пакетных менеджеров с их командами
@@ -39,14 +42,20 @@ def list_packages():
         if manager in list_commands:
             try:
                 print(
-                    f"📋 Создаем список установленных пакетов с помощью {manager}..."
+                    color_text(
+                        f"📋 Создаем список установленных пакетов с помощью {manager}...",
+                        "magenta",
+                    )
                 )
                 for command in list_commands[manager]:
                     run_command(command)
                     print()
             except RuntimeError as e:
                 print(
-                    f"\n❌ Ошибка при получении списка установленных пакетов для {manager}: {e}"
+                    color_text(
+                        f"\n❌ Ошибка при получении списка установленных пакетов для {manager}: {e}",
+                        "red",
+                    )
                 )
         else:
-            print(f"\n❌ Неизвестный пакетный менеджер: {manager}")
+            print(color_text(f"\n❌ Неизвестный пакетный менеджер: {manager}", "red"))

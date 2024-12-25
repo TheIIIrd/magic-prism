@@ -6,6 +6,7 @@
 """
 
 from .utils import run_command
+from .colors import color_text
 
 
 def remove_package(package_names):
@@ -18,14 +19,18 @@ def remove_package(package_names):
         None
     """
     if not package_names:
-        print("❌ Названия пакетов не указаны.")
+        print(color_text("❌ Названия пакетов не указаны.", "red"))
         return
 
     try:
-        print(f"🗑 Удаляем пакеты: {', '.join(package_names)}")
+        print(color_text(f"🗑 Удаляем пакеты: {', '.join(package_names)}", "yellow"))
         # Запуск команды pacman для удаления пакетов с указанием параметров
         run_command(["sudo", "pacman", "-Rsn", "--noconfirm"] + package_names)
-        print(f"🎉 Удаление {', '.join(package_names)} завершено успешно!")
+        print(
+            color_text(
+                f"🎉 Удаление {', '.join(package_names)} завершено успешно!", "green"
+            )
+        )
 
     except RuntimeError as e:
-        print(f"❌ Ошибка при удалении пакетов: {e}")
+        print(color_text(f"❌ Ошибка при удалении пакетов: {e}", "red"))

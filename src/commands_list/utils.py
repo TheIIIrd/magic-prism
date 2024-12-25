@@ -13,6 +13,7 @@
 """
 
 import subprocess
+from .colors import color_text
 
 
 def run_command(command):
@@ -57,7 +58,7 @@ def process_packages(command, package_names, comment):
         None
     """
     if not package_names:
-        print("❌ Название пакета не указано.")
+        print(color_text("❌ Название пакета не указано.", "red"))
         return
 
     for package in package_names:

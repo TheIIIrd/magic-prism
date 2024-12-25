@@ -6,6 +6,7 @@
 """
 
 from .utils import run_command
+from .colors import color_text
 
 
 def install_package(package_names):
@@ -18,14 +19,20 @@ def install_package(package_names):
         None
     """
     if not package_names:
-        print("❌ Названия пакетов не указаны.")
+        print(color_text("❌ Названия пакетов не указаны.", "red"))
         return
 
     try:
-        print(f"📦 Устанавливаем пакеты: {', '.join(package_names)}")
+        print(
+            color_text(f"📦 Устанавливаем пакеты: {', '.join(package_names)}", "green")
+        )
         # Запуск команды pacman для установки пакетов
         run_command(["sudo", "pacman", "-Sy", "--noconfirm"] + package_names)
-        print(f"🎉 Установка {', '.join(package_names)} завершена успешно!")
+        print(
+            color_text(
+                f"🎉 Установка {', '.join(package_names)} завершена успешно!", "green"
+            )
+        )
 
     except RuntimeError as e:
-        print(f"❌ Ошибка при установке пакетов: {e}")
+        print(color_text(f"❌ Ошибка при установке пакетов: {e}", "red"))
