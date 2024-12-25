@@ -30,17 +30,17 @@ def remove_package(package_names):
 
     # Словарь для сопоставления пакетных менеджеров с их командами удаления
     remove_commands = {
-        "epm": [["epme"]],
-        "flatpak": [["flatpak", "uninstall", "--remove-data"]],
-        "snap": [["snap", "remove"]],
-        "paru": [["paru", "-Rsn"]],
-        "yay": [["yay", "-Rsn"]],
-        "dnf": [["dnf", "remove"]],
-        "pacman": [["sudo", "pacman", "-Rsn", "--noconfirm"]],
-        "apk": [["sudo", "apk", "del"]],
-        "xbps": [["sudo", "xbps-remove", "-r"]],
-        "apt": [["sudo", "apt", "remove"]],
-        "apt-get": [["sudo", "apt-get", "remove"]],
+        "epm": ["sudo", "epme"],
+        "flatpak": ["flatpak", "uninstall", "--remove-data"],
+        "snap": ["snap", "remove"],
+        "paru": ["paru", "-Rsn"],
+        "yay": ["yay", "-Rsn"],
+        "dnf": ["dnf", "remove"],
+        "pacman": ["sudo", "pacman", "-Rsn", "--noconfirm"],
+        "apk": ["sudo", "apk", "del"],
+        "xbps": ["sudo", "xbps-remove", "-r"],
+        "apt": ["sudo", "apt", "remove"],
+        "apt-get": ["sudo", "apt-get", "remove"],
     }
 
     # Словарь для хранения пакетов по пакетным менеджерам
@@ -62,8 +62,9 @@ def remove_package(package_names):
                         "yellow",
                     )
                 )
-                command = remove_commands[manager]
-                run_command(command + packages)  # Запуск команды для удаления
+
+                run_command(remove_commands[manager] + packages)
+
                 print(
                     color_text(
                         f"🎉 Удаление {', '.join(packages)} завершено успешно для {manager}!",
@@ -93,7 +94,7 @@ def is_package_installed(package_name, package_manager):
 
     # Словарь с командами для проверки установки пакетов
     commands = {
-        "epm": [["rpm", "-q"]],
+        "epm": ["rpm", "-q", package_name],
         "flatpak": ["flatpak", "info", package_name],
         "snap": ["snap", "list", package_name],
         "paru": ["pacman", "-Q", package_name],  # основа на pacman
