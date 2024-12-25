@@ -64,11 +64,12 @@ def remove_pkg(pkg_names):
                 )
 
                 for command in remove_commands[manager]:
-                    run_command(command + pkgs)  # Запуск команды для удаления пакетов
+                    # Запуск команды для удаления пакетов
+                    run_command(command + pkgs)
 
                 print(
                     color_text(
-                        f"🎉 Удаление {', '.join(pkgs)} завершено успешно для {manager}!",
+                        f"🎉 Удаление {', '.join(pkgs)} завершено успешно для {manager}!\n",
                         "green",
                     )
                 )

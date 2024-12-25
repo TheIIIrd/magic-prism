@@ -53,13 +53,12 @@ def install_pkg(pkg_names):
                 )
 
                 for command in install_commands[manager]:
-                    run_command(
-                        command + pkg_names
-                    )  # Запуск команды для установки пакетов
+                    # Запуск команды для установки пакетов
+                    run_command(command + pkg_names)
 
                 print(
                     color_text(
-                        f"🎉 Установка {', '.join(pkg_names)} завершена успешно для {manager}!",
+                        f"🎉 Установка {', '.join(pkg_names)} завершена успешно для {manager}!\n",
                         "green",
                     )
                 )
