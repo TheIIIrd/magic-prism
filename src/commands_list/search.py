@@ -6,6 +6,7 @@
 """
 
 from .utils import process_packages, detect_package_managers
+from .colors import color_text
 
 
 def search_package(package_names):
