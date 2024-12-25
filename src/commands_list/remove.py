@@ -30,7 +30,7 @@ def remove_package(package_names):
 
     # Словарь для сопоставления пакетных менеджеров с их командами удаления
     remove_commands = {
-        "epm": [["epm", "-R"]],
+        "epm": [["epme"]],
         "flatpak": [["flatpak", "uninstall", "--remove-data"]],
         "snap": [["snap", "remove"]],
         "paru": [["paru", "-Rsn"]],
@@ -93,16 +93,17 @@ def is_package_installed(package_name, package_manager):
 
     # Словарь с командами для проверки установки пакетов
     commands = {
-        "pacman": ["pacman", "-Q", package_name],
-        "apt": ["dpkg", "-s", package_name],
-        "apt-get": ["dpkg", "-s", package_name],
-        "dnf": ["dnf", "list", "installed", package_name],
-        "snap": ["snap", "list", package_name],
+        "epm": [["rpm", "-q"]],
         "flatpak": ["flatpak", "info", package_name],
-        "apk": ["apk", "info", package_name],
-        "xbps": ["xbps-query", "-e", package_name],
+        "snap": ["snap", "list", package_name],
         "paru": ["pacman", "-Q", package_name],  # основа на pacman
         "yay": ["pacman", "-Q", package_name],  # основа на pacman
+        "dnf": ["dnf", "list", "installed", package_name],
+        "pacman": ["pacman", "-Q", package_name],
+        "apk": ["apk", "info", package_name],
+        "xbps": ["xbps-query", "-e", package_name],
+        "apt": ["dpkg", "-s", package_name],
+        "apt-get": ["dpkg", "-s", package_name],
     }
 
     # Получаем команду для заданного пакетного менеджера
