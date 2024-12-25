@@ -20,4 +20,4 @@ jobs:
         pip install pylint
     - name: Analysing the code with pylint
       run: |
-        PYTHONPATH=./src/ pylint --fail-under=90 $(git ls-files '*.py')
+        PYTHONPATH=./src/ pylint --fail-under=9.90 $(git ls-files '*.py')
