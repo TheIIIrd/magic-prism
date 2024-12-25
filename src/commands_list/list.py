@@ -44,9 +44,12 @@ def list_pkgs():
                         "magenta",
                     )
                 )
+
                 for command in list_commands[manager]:
+                    # Запуск команды для вывода списка установленных пакетов
                     run_command(command)
                     print()
+
             except RuntimeError as e:
                 print(
                     color_text(
@@ -54,5 +57,6 @@ def list_pkgs():
                         "red",
                     )
                 )
+
         else:
             print(color_text(f"\n❌ Неизвестный пакетный менеджер: {manager}", "red"))

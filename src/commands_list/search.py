@@ -42,13 +42,16 @@ def search_pkg(pkg_names):
         if manager in search_commands:
             try:
                 print(color_text(f"🔍 Ищем пакеты с помощью {manager}...", "magenta"))
+
                 for command in search_commands[manager]:
+                    # Запуск команды для поиска пакетов
                     process_pkgs(
                         command,
                         pkg_names,
                         color_text("\n🔍 Ищем пакет:", "magenta"),
                     )
                     print()
+
             except RuntimeError as e:
                 print(
                     color_text(

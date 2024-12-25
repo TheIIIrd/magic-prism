@@ -47,19 +47,24 @@ def upgrade_system():
                         "magenta",
                     )
                 )
+
                 for command in upgrade_commands[manager]:
+                    # Запуск команды для обновления пакетов
                     run_command(command)
+
                 print(
                     color_text(
                         f"🎉 Обновление пакетов завершено успешно для {manager}!\n",
                         "green",
                     )
                 )
+
             except RuntimeError as e:
                 print(
                     color_text(
                         f"\n❌ Ошибка при обновлении пакетов для {manager}: {e}", "red"
                     )
                 )
+
         else:
             print(color_text(f"\n❌ Неизвестный пакетный менеджер: {manager}", "red"))

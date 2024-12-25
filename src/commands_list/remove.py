@@ -6,7 +6,7 @@
 - is_pkg_installed(pkg_name, pkg_manager) Проверяет, установлен ли пакет.
 """
 
-from .utils import run_command, detect_pkg_managers, check_pkg_managers
+from .utils import run_command, prepare_pkg_managers
 from .colors import color_text
 
 
@@ -19,13 +19,8 @@ def remove_pkg(pkg_names):
     Returns:
         None
     """
-    if not pkg_names:
-        print(color_text("❌ Названия пакетов не указаны.", "red"))
-        return
-
-    pkg_managers = detect_pkg_managers()
-
-    if not check_pkg_managers(pkg_managers):
+    pkg_managers = prepare_pkg_managers(pkg_names)
+    if pkg_managers is None:
         return
 
     # Словарь для сопоставления пакетных менеджеров с их командами удаления
@@ -73,12 +68,14 @@ def remove_pkg(pkg_names):
                         "green",
                     )
                 )
+
             except RuntimeError as e:
                 print(
                     color_text(
                         f"❌ Ошибка при удалении пакетов с {manager}: {e}", "red"
                     )
                 )
+
         else:
             print(color_text(f"👁️‍🗨️ Нет пакетов для удаления в {manager}.", "blue"))
 
@@ -116,6 +113,7 @@ def is_pkg_installed(pkg_name, pkg_manager):
         try:
             run_command(command)
             return True
+
         except RuntimeError:
             return False
 

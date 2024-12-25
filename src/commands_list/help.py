@@ -40,8 +40,10 @@ def print_help_message():
     # Проверяем, есть ли пакетные менеджеры в списке
     if check_pkg_managers(pkg_managers):
         print(color_text("\n📦 Доступные приоритетные пакетные менеджеры:", "green"))
+
         for manager in pkg_managers:
             print(f"- {manager}")
         print()
+
     else:
         print(color_text("\n❌ Пакетные менеджеры не найдены.", "red"))

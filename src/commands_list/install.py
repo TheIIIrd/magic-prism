@@ -5,7 +5,7 @@
 - install_pkg(pkg_names): Устанавливает указанные пакеты.
 """
 
-from .utils import run_command, detect_pkg_managers, check_pkg_managers
+from .utils import run_command, prepare_pkg_managers
 from .colors import color_text
 
 
@@ -18,13 +18,8 @@ def install_pkg(pkg_names):
     Returns:
         None
     """
-    if not pkg_names:
-        print(color_text("❌ Названия пакетов не указаны.", "red"))
-        return
-
-    pkg_managers = detect_pkg_managers()
-
-    if not check_pkg_managers(pkg_managers):
+    pkg_managers = prepare_pkg_managers(pkg_names)
+    if pkg_managers is None:
         return
 
     # Словарь для сопоставления пакетных менеджеров с их командами установки
@@ -70,5 +65,6 @@ def install_pkg(pkg_names):
                         f"❌ Ошибка при установке пакетов с {manager}: {e}", "red"
                     )
                 )
+
         else:
             print(color_text(f"❌ Неизвестный пакетный менеджер: {manager}", "red"))

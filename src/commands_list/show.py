@@ -47,13 +47,16 @@ def show_pkg(pkg_names):
                         "magenta",
                     )
                 )
+
                 for command in show_commands[manager]:
+                    # Запуск команды для вывода информации о пакетах
                     process_pkgs(
                         command,
                         pkg_names,
                         color_text("\n📋 Создаем сводку о пакете:", "magenta"),
                     )
                     print()
+
             except RuntimeError as e:
                 print(
                     color_text(

@@ -47,19 +47,24 @@ def update_system():
                         "magenta",
                     )
                 )
+
                 for command in update_commands[manager]:
+                    # Запуск команды для синхронизации репозиториев
                     run_command(command)
+
                 print(
                     color_text(
                         f"🎉 Синхронизация репозиториев завершена успешно для {manager}!\n",
                         "green",
                     )
                 )
+
             except RuntimeError as e:
                 print(
                     color_text(
                         f"\n❌ Ошибка при синхронизации для {manager}: {e}", "red"
                     )
                 )
+
         else:
             print(color_text(f"\n❌ Неизвестный пакетный менеджер: {manager}", "red"))

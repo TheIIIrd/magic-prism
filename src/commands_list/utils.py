@@ -1,10 +1,19 @@
 """
-Этот модуль предоставляет функции для выполнения команд в системе.
-Функция `run_command` запускает указанную команду и возвращает ее вывод.
-Функция `process_pkgs` обрабатывает список пакетов, вызывая `run_command` для каждого пакета.
-Функция `detect_pkg_managers` определяет, какие пакетные менеджеры используются в системе.
-Функция `check_pkg_managers` проверяет доступные пакетные менеджеры.
-Функция `is_command_available` проверяет, доступна ли команда в системе.
+Этот модуль предоставляет функции для выполнения команд в системе и управления
+пакетами с помощью различных пакетных менеджеров.
+
+Функции:
+- run_command(command): Запускает указанную команду и возвращает ее вывод.
+- process_pkgs(command, pkg_names, comment): Обрабатывает список пакетов, вызывая
+  `run_command` для каждого пакета с указанной командой и выводя комментарий.
+- detect_pkg_managers(should_filter=True): Определяет, какие пакетные менеджеры
+  установлены в системе.
+- check_pkg_managers(pkg_managers): Проверяет доступные пакетные менеджеры и выводит
+  сообщение об ошибке, если их нет.
+- check_pkg_names(pkg_names): Проверяет, указаны ли названия пакетов.
+- is_command_available(command): Проверяет, доступна ли команда в системе.
+- prepare_pkg_managers(pkg_names): Подготавливает список пакетных менеджеров для
+  установки или удаления пакетов.
 
 Использование:
     output = run_command(["команда", "аргумент1", "аргумент2"])
@@ -65,13 +74,14 @@ def process_pkgs(command, pkg_names, comment):
     for pkg in pkg_names:
         try:
             print(comment, pkg)
-            run_command(command + [pkg])  # Запуск команды для каждого пакета
+            # Запуск команды для каждого пакета
+            run_command(command + [pkg])
 
         except RuntimeError as e:
             print(e)
 
 
-def detect_pkg_managers():
+def detect_pkg_managers(should_filter=True):
     """Определяет установленные пакетные менеджеры.
 
     Returns:
@@ -105,8 +115,10 @@ def detect_pkg_managers():
         if is_command_available(command):
             found_managers.append(manager)
 
-    # Фильтруем ненужные пакетные менеджеры
-    return filter_pkg_managers(found_managers)
+    if should_filter:
+        # Фильтруем ненужные пакетные менеджеры
+        return filter_pkg_managers(found_managers)
+    return found_managers
 
 
 def filter_pkg_managers(found_managers):
@@ -122,17 +134,48 @@ def filter_pkg_managers(found_managers):
         found_managers = [
             m
             for m in found_managers
-            if m not in ["flatpak", "dnf", "apt", "apt-get", "rpm", "dpkg"]
+            if m
+            not in [
+                "flatpak",
+                "dnf",
+                "apt",
+                "apt-get",
+                "rpm",
+                "dpkg",
+            ]
         ]
 
     if "apt" in found_managers:
-        found_managers = [m for m in found_managers if m not in ["apt-get", "dpkg"]]
+        found_managers = [
+            m
+            for m in found_managers
+            if m
+            not in [
+                "apt-get",
+                "dpkg",
+            ]
+        ]
 
     if "paru" in found_managers:
-        found_managers = [m for m in found_managers if m not in ["yay", "pacman"]]
+        found_managers = [
+            m
+            for m in found_managers
+            if m
+            not in [
+                "yay",
+                "pacman",
+            ]
+        ]
 
     if "yay" in found_managers:
-        found_managers = [m for m in found_managers if m not in ["pacman"]]
+        found_managers = [
+            m
+            for m in found_managers
+            if m
+            not in [
+                "pacman",
+            ]
+        ]
 
     return found_managers
 
@@ -155,6 +198,21 @@ def check_pkg_managers(pkg_managers):
     return True
 
 
+def check_pkg_names(pkg_names):
+    """Проверяет, указаны ли названия пакетов.
+
+    Args:
+        pkg_names (list): Список имен пакетов.
+
+    Returns:
+        bool: True, если названия пакетов указаны, иначе False.
+    """
+    if not pkg_names:
+        print(color_text("❌ Названия пакетов не указаны.", "red"))
+        return False
+    return True
+
+
 def is_command_available(command):
     """Проверяет, доступна ли команда в системе.
 
@@ -173,6 +231,27 @@ def is_command_available(command):
             stderr=subprocess.PIPE,
         )
         return True
+
     except (FileNotFoundError, subprocess.CalledProcessError):
         # Если команда не найдена или завершилась с ошибкой, возвращаем False
         return False
+
+
+def prepare_pkg_managers(pkg_names):
+    """Подготавливает список пакетных менеджеров для установки или удаления пакетов.
+
+    Args:
+        pkg_names (list): Список имен пакетов.
+
+    Returns:
+        list: Список доступных пакетных менеджеров, или None, если есть ошибка.
+    """
+    if not check_pkg_names(pkg_names):
+        return None
+
+    pkg_managers = detect_pkg_managers()
+
+    if not check_pkg_managers(pkg_managers):
+        return None
+
+    return pkg_managers
