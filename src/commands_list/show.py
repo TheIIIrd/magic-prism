@@ -5,7 +5,7 @@
 - show_package(package_names): Выводит информацию о указанных пакетах.
 """
 
-from .utils import run_command, detect_package_managers, check_package_managers
+from .utils import process_packages, detect_package_managers, check_package_managers
 from .colors import color_text
 
 
