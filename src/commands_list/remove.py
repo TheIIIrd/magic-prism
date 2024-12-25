@@ -2,15 +2,11 @@
 Модуль для удаления пакетов с помощью различных пакетных менеджеров.
 
 Функции:
-- remove_package(package_names): Удаляет указанные пакеты с помощью поддерживаемых пакетных менеджеров.
+- remove_package(package_names): Удаляет указанные пакеты.
+- is_package_installed(package_name, package_manager) Проверяет, установлен ли пакет.
 """
 
-from .utils import (
-    run_command,
-    detect_package_managers,
-    check_package_managers,
-    find_installed_packages,
-)
+from .utils import run_command, detect_package_managers, check_package_managers
 from .colors import color_text
 
 
@@ -114,7 +110,7 @@ def is_package_installed(package_name, package_manager):
 
     if command:
         try:
-            run_command(command, check=True)
+            run_command(command)
             return True
         except RuntimeError:
             return False
