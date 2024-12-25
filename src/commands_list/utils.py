@@ -42,8 +42,7 @@ def run_command(command):
     except subprocess.CalledProcessError as e:
         # Явно перекидываем исключение с указанием на оригинальную ошибку
         raise RuntimeError(
-            color_text("[ ! ] Ошибка при выполнении команды:", "red"),
-            f"{e.stderr.decode().strip()}",
+            f"\n\033[31m❌ Ошибка при выполнении команды:\033[0m\n{e.stderr.decode().strip()}"
         ) from e
 
 
