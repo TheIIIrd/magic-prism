@@ -3,6 +3,7 @@
 Функция `run_command` запускает указанную команду и возвращает ее вывод.
 Функция `process_packages` обрабатывает список пакетов, вызывая `run_command` для каждого пакета.
 Функция `detect_package_managers` определяет, какие пакетные менеджеры используются в системе.
+Функция `check_package_managers` проверяет доступные пакетные менеджеры.
 Функция `is_command_available` проверяет, доступна ли команда в системе.
 
 Использование:
@@ -41,7 +42,7 @@ def run_command(command):
     except subprocess.CalledProcessError as e:
         # Явно перекидываем исключение с указанием на оригинальную ошибку
         raise RuntimeError(
-            f"\n{color_text("❌ Ошибка при выполнении команды:", "red")}\n{e.stderr.decode().strip()}"
+            f"\n{color_text("[ ! ] Ошибка при выполнении команды:", "red")}\n{e.stderr.decode().strip()}"
         ) from e
 
 
@@ -134,6 +135,24 @@ def filter_package_managers(found_managers):
         found_managers = [m for m in found_managers if m not in ["pacman"]]
 
     return found_managers
+
+
+def check_package_managers(package_managers):
+    """Проверяет доступные пакетные менеджеры в системе.
+
+    Если список пуст, выводит сообщение об ошибке и возвращает False.
+    В противном случае возвращает True.
+
+    Returns:
+        bool: True, если пакетные менеджеры найдены, иначе False.
+    """
+
+    if not package_managers:
+        print(
+            color_text("❌ Не удалось определить доступные пакетные менеджеры.", "red")
+        )
+        return False
+    return True
 
 
 def is_command_available(command):

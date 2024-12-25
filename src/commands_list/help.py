@@ -5,7 +5,7 @@
 доступных командах и их назначении, чтобы упростить использование пакетного менеджера.
 """
 
-from .utils import detect_package_managers
+from .utils import detect_package_managers, check_package_managers
 from .colors import color_text
 
 
@@ -38,7 +38,7 @@ def print_help_message():
     package_managers = detect_package_managers()
 
     # Проверяем, есть ли пакетные менеджеры в списке
-    if package_managers:
+    if check_package_managers(package_managers):
         print(color_text("\n📦 Доступные приоритетные пакетные менеджеры:", "green"))
         for manager in package_managers:
             print(f"- {manager}")
