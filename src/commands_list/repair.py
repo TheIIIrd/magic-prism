@@ -50,8 +50,14 @@ def repair_pkg():
             ),
         ],
         "flatpak": [
-            (["flatpak", "update"], "Обновление установленных Flatpak пакетов..."),
-            (["flatpak", "repair"], "Проверка и восстановление Flatpak пакетов..."),
+            (
+                ["flatpak", "update"],
+                "Обновление установленных Flatpak пакетов...",
+            ),
+            (
+                ["flatpak", "repair"],
+                "Проверка и восстановление Flatpak пакетов...",
+            ),
         ],
         "snap": [
             (
@@ -79,14 +85,7 @@ def repair_pkg():
         ],
         "pacman": [
             (
-                [
-                    "sudo",
-                    "pacman",
-                    "-Sy",
-                    "--needed",
-                    "--noconfirm",
-                    "archlinux-keyring",
-                ],
+                ["sudo", "pacman", "-Sy", "--needed", "--noconfirm", "archlinux-keyring"],
                 "Обновление ключей Arch Linux...",
             ),
             (
@@ -103,14 +102,32 @@ def repair_pkg():
             ),
         ],
         "apk": [
-            (["sudo", "apk", "update"], "Обновление списка пакетов..."),
-            (["sudo", "apk", "upgrade"], "Обновление установленных пакетов..."),
-            (["sudo", "apk", "cache", "clean"], "Очистка кэша пакетов..."),
+            (
+                ["sudo", "apk", "update"],
+                "Обновление списка пакетов...",
+            ),
+            (
+                ["sudo", "apk", "upgrade"],
+                "Обновление установленных пакетов...",
+            ),
+            (
+                ["sudo", "apk", "cache", "clean"],
+                "Очистка кэша пакетов...",
+            ),
         ],
         "xbps": [
-            (["sudo", "xbps-install", "-S"], "Обновление списка пакетов..."),
-            (["sudo", "xbps-install", "-u"], "Обновление установленных пакетов..."),
-            (["sudo", "xbps-remove", "-o"], "Очистка неиспользуемых пакетов..."),
+            (
+                ["sudo", "xbps-install", "-S"],
+                "Обновление списка пакетов...",
+            ),
+            (
+                ["sudo", "xbps-install", "-u"],
+                "Обновление установленных пакетов...",
+            ),
+            (
+                ["sudo", "xbps-remove", "-o"],
+                "Очистка неиспользуемых пакетов...",
+            ),
         ],
         "apt": [
             (
